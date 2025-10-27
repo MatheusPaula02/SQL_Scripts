@@ -14,6 +14,7 @@ Todos os exemplos são **fictícios**, mas baseados em **situações reais** de 
 | Pasta | Descrição |
 |-------|------------|
 | `/fiscal` | Simulações de queries fiscais (ICMS, SPED, CFOP, etc.) |
+| `/validacao_dados` | Scripts desenvolvidos para correção/tratamentos de dados |
 
 ## 🧩 Banco de Dados
 Scripts testados principalmente em **SQL Server**, mas facilmente adaptáveis para **PostgreSQL** ou **MySQL**.
