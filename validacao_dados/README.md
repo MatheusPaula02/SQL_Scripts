@@ -39,3 +39,48 @@ Ideal para **tratamento de duplicidades em bases sem chave única**.
 - Desenvolvido para **bases SQL Server**, podendo ser adaptado facilmente para outros ambientes.  
 - Indicado para **limpeza controlada** de dados fiscais duplicados em sistemas de emissão de NFCE.
 
+---
+
+# 🧾 Ajuste_Campos_Nulos.sql
+
+### 🧠 Resumo
+Script desenvolvido para **corrigir registros de cupons fiscais (ITENS_CUPONS)** que estão com o campo **CST_PISCOFINS nulo**, utilizando como referência a tabela **IMPOSTOS_FEDERAIS_PRODUTOS**.  
+O processo é dividido em duas etapas: **validação dos registros nulos** e **atualização dos campos faltantes**.
+
+---
+
+### ⚙️ Conceitos SQL Utilizados
+
+| Conceito | Função |
+|-----------|--------|
+| `INNER JOIN` | Relaciona produtos do cupom com a tabela de referência fiscal. |
+| `WHERE IS NULL` | Filtra apenas os registros sem código de CST. |
+| `UPDATE ... FROM` | Atualiza registros na tabela principal usando valores de outra tabela. |
+| `AS` | Define apelidos para tabelas ou colunas, facilitando leitura e referência. |
+| `BEGIN TRANSACTION` | Inicia uma transação para aplicar alterações de forma segura (teste). |
+| `COMMIT` | Confirma todas as alterações feitas dentro da transação. |
+| `ROLLBACK` | Cancela todas as alterações realizadas dentro da transação caso ocorra algum erro. |
+
+---
+
+### 🧩 Tabelas Utilizadas
+
+| Tabela | Função |
+|--------|--------|
+| `ITENS_CUPONS` | Itens de cupons fiscais emitidos (detalhamento por produto). |
+| `IMPOSTOS_FEDERAIS_PRODUTOS` | Base de referência com CSTs e alíquotas de saída dos produtos. |
+
+---
+
+### 📌 Pontos de Importância
+- Primeiro, **valida** quais registros estão sem CST com um `SELECT`.  
+- Depois, **atualiza** os campos nulos com os valores corretos da tabela de referência.  
+- Evita inconsistências em **relatórios fiscais e SPED**.  
+- Boa prática: **usar transação para testes** antes de aplicar alterações definitivas:  
+
+```sql
+BEGIN TRANSACTION;
+-- UPDATE ...
+COMMIT;   -- ou ROLLBACK caso necessário
+
+
