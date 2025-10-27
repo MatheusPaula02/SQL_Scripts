@@ -47,4 +47,49 @@ O processo engloba:
 - Limita o período a **últimos 8 meses** para otimização e performance.  
 - Boa prática: **verificar resultados com SELECT antes de usar em exportação** para SPED.
 
+---
+
+# 📊 Analise_Inconsistencia_Fiscal.sql
+
+### 🧠 Resumo
+Script utilizado para **identificar divergências fiscais em cupons de venda (PDV, NFCE e SAT)**, apontando:
+- Quebras de sequência
+- Duplicidades
+- Cancelamentos incorretos
+- Falta de registros entre tabelas
+
+---
+
+### ⚙️ Conceitos SQL Utilizados
+
+| Conceito | Função |
+|-----------|--------|
+| `CTE (WITH RECURSIVE)` | Gera sequência contínua de cupons para detectar quebras. |
+| `UNION ALL` | Consolida resultados de diferentes verificações (NFCE, SAT, PDV). |
+| `HAVING COUNT(*) > 1` | Identifica duplicidades de registros. |
+| `OPTION (MAXRECURSION 0)` | Evita truncamento de recursões em grandes volumes. |
+| `DROP TABLE IF EXISTS` | Garante limpeza das tabelas temporárias antes da execução. |
+| `DECLARE / SET` |	Define parâmetros dinâmicos de entrada, como loja, data e flags de execução. |
+| `SELECT ... INTO ##TEMP` |  Cria tabelas temporárias globais para armazenar resultados intermediários. |
+| `ISNULL()` |	Substitui valores nulos em cálculos, evitando resultados incorretos. |
+| `CASE WHEN` |	Aplica lógica condicional para classificar divergências (ex: cancelado incorretamente). |
+| `LEFT JOIN` |	Mantém todos os registros principais, permitindo detectar ausências ou quebras. |
+
+---
+
+### 🧩 Tabelas Utilizadas
+
+| Tabela | Função |
+|--------|--------|
+| `CAPA_CUPOM` | Capa dos cupons fiscais, contendo totais e status de cancelamento. |
+| `ITENS_CUPOM` | Itens individuais dos cupons (produtos vendidos). |
+| `INFO_CUPOM_NFCE` | Registro das notas fiscais eletrônicas. |
+| `INFO_CUPOM_SAT` | Registro dos cupons SAT. |
+
+---
+
+### 📌 Pontos de Importância
+- Identifica **falhas críticas** de comunicação entre sistemas PDV e fiscais..  
+- ConsUsa **CTEs** e tabelas temporárias para eficiência e clareza na análise.  
+- Pode ser incorporado em **rotinas automáticas** de auditoria fiscal e conciliadores de vendas para **agilizar processos de correção interna**.  
 
