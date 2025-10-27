@@ -4,14 +4,14 @@ Script: Ajuste_Campos_Nulos.sql
 Autor: Matheus Paula
 ===
 Descrição:
-    Este script identifica e corrige registros de cupons fiscais (PDV_CUPOMITM)
+    Este script identifica e corrige registros de cupons fiscais (ITENS_CUPONS)
     que estão com o campo CST_PISCOFINS nulo, utilizando como referência
     os códigos fiscais cadastrados e registrados em outra tabela.
     Desenvolvido para ambiente SQL Server.
 ===
 Lógica geral:
     1️. Localiza produtos vendidos sem código de CST_PISCOFINS.
-    2️. Relaciona os produtos com sua base fiscal (PRODUTOS_IMPOSTOS_FEDERAIS).
+    2️. Relaciona os produtos com sua base fiscal (IMPOSTOS_FEDERAIS_PRODUTOS).
     3️. Atualiza os registros ausentes com o código de saída correspondente.
     4️. Permite validar o impacto da atualização antes da execução definitiva.
 ===
@@ -22,7 +22,7 @@ Observação:
 
 /*
   ETAPA 1: Validação
-  Nesta etapa, listamos os itens de cupons fiscais (PDV_CUPOMITM)
+  Nesta etapa, listamos os itens de cupons fiscais (ITENS_CUPONS)
   que estão sem CST_PISCOFINS e comparamos com o valor de referência
   da tabela de impostos federais.
 */
@@ -33,8 +33,8 @@ SELECT
     P.DATA,                                  
     P.CST_PISCOFINS AS CST_ATUAL,            
     P.CODLOJA                                
-FROM PDV_CUPOMITM AS P
-INNER JOIN PRODUTOS_IMPOSTOS_FEDERAIS AS I 
+FROM ITENS_CUPONS AS P
+INNER JOIN IMPOSTOS_FEDERAIS_PRODUTOS AS I 
     ON P.CODPROD = I.CODPROD
 WHERE P.DATA >= '2025-10-01'
   
@@ -50,8 +50,8 @@ WHERE P.DATA >= '2025-10-01'
 
 UPDATE P
 SET P.CST_PISCOFINS = I.CST_PISCOFINSSAIDA
-FROM PDV_CUPOMITM AS P
-INNER JOIN PRODUTOS_IMPOSTOS_FEDERAIS AS I 
+FROM ITENS_CUPONS AS P
+INNER JOIN IMPOSTOS_FEDERAIS_PRODUTOS AS I 
     ON P.CODPROD = I.CODPROD
 WHERE P.DATA >= '2025-10-01'
   AND P.CST_PISCOFINS IS NULL
