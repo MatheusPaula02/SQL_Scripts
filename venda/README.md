@@ -1,4 +1,4 @@
-# 📄 analise_forma_pagamento.sql
+# 📄 Analise_Forma_Pagamento.sql
 
 ### 🧠 Resumo
 Script desenvolvido para **analisar e detalhar formas de pagamento** associadas às vendas.  
