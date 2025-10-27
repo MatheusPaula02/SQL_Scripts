@@ -30,9 +30,9 @@ DECLARE
     @CODLOJA INT
 
 -- Definição dos parâmetros de entrada
-SET @DATAINI = '2024-11-01'
-SET @DATAEND = '2024-11-30'
-SET @CODLOJA = 4
+SET @DATAINI = '2025-10-01'
+SET @DATAEND = '2025-10-31'
+SET @CODLOJA = 1
 
 -- LIMPEZA INICIAL: Remove tabelas temporárias anteriores, caso existam
 DROP TABLE IF EXISTS ##DUPLICADOS
