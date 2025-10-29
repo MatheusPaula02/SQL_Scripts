@@ -1,7 +1,7 @@
 # 💾 SQL / Scripts - Matheus Paula
 
 Este repositório reúne exemplos de scripts SQL desenvolvidos para estudo, automação, análise de dados e implementação em clientes.  
-Todos os exemplos são **fictícios**, mas baseados em **situações reais** de ETL, relatórios e auditorias de dados.
+Alguns exemplos são **fictícios**, outros são **situações reais** de ETL, relatórios e auditorias de dados que foram aplicados durante meu dia á dia de trabalho.
 
 ## 🧠 Habilidades Demonstradas
 - Manipulação e tratamento de dados (SELECT, JOIN, UNION, CASE, CTE, WINDOW FUNCTIONS)
